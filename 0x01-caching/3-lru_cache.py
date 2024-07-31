@@ -56,4 +56,7 @@ class LRUCache(BaseCaching):
     def get(self, key):
         """ Get an item by key
         """
+        if key is not None and key in self.ls:
+            self.ls.remove(key)
+            self.ls.append(key)
         return self.cache_data.get(key, None)
