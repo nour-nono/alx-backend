@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """First-In First-Out caching module.
 """
-from collections import OrderedDict
-
+# from collections import OrderedDict
+from collections import deque
 from base_caching import BaseCaching
 
 
