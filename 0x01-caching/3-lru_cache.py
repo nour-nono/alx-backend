@@ -15,25 +15,45 @@ class LRUCache(BaseCaching):
         """Initializes the cache.
         """
         super().__init__()
-        self.cache_data = OrderedDict()
+    #     self.cache_data = OrderedDict()
+        self.ls = []
+
+    # def put(self, key, item):
+    #     """Adds an item in the cache.
+    #     """
+    #     if key is None or item is None:
+    #         return
+    #     if key not in self.cache_data:
+    #         if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
+    #             lru_key, _ = self.cache_data.popitem(True)
+    #             print("DISCARD:", lru_key)
+    #         self.cache_data[key] = item
+    #         self.cache_data.move_to_end(key, last=False)
+    #     else:
+    #         self.cache_data[key] = item
+
+    # def get(self, key):
+    #     """Retrieves an item by key.
+    #     """
+    #     if key is not None and key in self.cache_data:
+    #         self.cache_data.move_to_end(key, last=False)
+    #     return self.cache_data.get(key, None)
+            self .ls = []
 
     def put(self, key, item):
-        """Adds an item in the cache.
+        """ Add an item in the cache
         """
-        if key is None or item is None:
+        if not (key and item):
             return
-        if key not in self.cache_data:
-            if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                lru_key, _ = self.cache_data.popitem(True)
-                print("DISCARD:", lru_key)
-            self.cache_data[key] = item
-            self.cache_data.move_to_end(key, last=False)
+        if key in self.ls:
+            self.ls.remove(key)
         else:
-            self.cache_data[key] = item
+            if self.MAX_ITEMS == len(self.cache_data):
+                print("DISCARD:", self.cache_data.pop(self.ls.pop(0), 0))
+        self.ls.append(key)
+        self.cache_data[key] = item
 
     def get(self, key):
-        """Retrieves an item by key.
+        """ Get an item by key
         """
-        if key is not None and key in self.cache_data:
-            self.cache_data.move_to_end(key, last=False)
         return self.cache_data.get(key, None)
