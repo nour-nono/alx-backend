@@ -47,8 +47,9 @@ class LRUCache(BaseCaching):
         if key in self.ls:
             self.ls.remove(key)
         else:
-            if self.MAX_ITEMS == len(self.cache_data):
-                print("DISCARD:", self.cache_data.pop(self.ls.pop(0), 0))
+            if self.MAX_ITEMS == len(self.ls):
+                self.cache_data.pop(self.ls[0], 0)
+                print("DISCARD:", self.ls.pop(0))
         self.ls.append(key)
         self.cache_data[key] = item
 
