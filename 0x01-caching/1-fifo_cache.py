@@ -2,7 +2,7 @@
 """First-In First-Out caching module.
 """
 from collections import OrderedDict
-
+# from collections import deque
 from base_caching import BaseCaching
 
 
@@ -16,6 +16,7 @@ class FIFOCache(BaseCaching):
         """
         super().__init__()
         self.cache_data = OrderedDict()
+        # self .ls = deque()
 
     def put(self, key, item):
         """Adds an item in the cache.
@@ -30,3 +31,19 @@ class FIFOCache(BaseCaching):
         """Retrieves an item by key.
         """
         return self.cache_data.get(key, None)
+    # def put(self, key, item):
+    #     """ Add an item in the cache
+    #     """
+    #     if not (key and item):
+    #         return
+    #     if self.MAX_ITEMS == len(self.cache_data):
+    #         x = self.ls.popleft()
+    #         self.cache_data.pop(x, 0)
+    #         print("DISCARD:", x)
+    #     self.ls.append(key)
+    #     self.cache_data[key] = item
+
+    # def get(self, key):
+    #     """ Get an item by key
+    #     """
+    #     return self.cache_data.get(key, None)

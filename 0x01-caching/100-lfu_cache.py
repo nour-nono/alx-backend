@@ -2,7 +2,7 @@
 """Least Frequently Used caching module.
 """
 from collections import OrderedDict
-
+# from math import inf
 from base_caching import BaseCaching
 
 
@@ -16,6 +16,7 @@ class LFUCache(BaseCaching):
         """
         super().__init__()
         self.cache_data = OrderedDict()
+        # self.freq = {}
         self.keys_freq = []
 
     def __reorder_items(self, mru_key):
@@ -71,3 +72,34 @@ class LFUCache(BaseCaching):
         if key is not None and key in self.cache_data:
             self.__reorder_items(key)
         return self.cache_data.get(key, None)
+
+    # def put(self, key, item):
+    #     """ Add an item in the cache
+    #     """
+    #     if not (key and item):
+    #         return
+    #     if key not in self.cache_data:
+    #         if self.MAX_ITEMS == len(self.cache_data):
+    #             mini = inf
+    #             val = 0
+    #             for v in self.freq.values():
+    #                 mini = min(mini, v)
+    #             for k in self.cache_data.keys():
+    #                 if self.freq[k] == mini:
+    #                     val = k
+    #                     break
+    #             self.freq.pop(val, 0)
+    #             self.cache_data.pop(val, 0)
+    #             print("DISCARD:", val)
+    #         self.freq[key] = 0
+    #     self.cache_data[key] = item
+    #     self.freq[key] += 1
+
+    # def get(self, key):
+    #     """ Get an item by key
+    #     """
+    #     x = self.cache_data.get(key, None)
+    #     if x:
+    #         self.cache_data.move_to_end(key, last=True)
+    #         self.freq[key] += 1
+    #     return x
